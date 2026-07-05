@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>娄曾濠 - 个人作品集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e86a33;
+            --dark: #1a1a2e;
+            --bg: #ffffff;
+            --bg-alt: #f8f9fa;
+            --text: #222;
+            --text-light: #666;
+            --border: #e5e5e5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        a { color: var(--primary); text-decoration: none; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+            position: relative;
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23e86a33" opacity="0.15"/></svg>');
+            background-size: 50px 50px;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .avatar {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(232,106,51,0.2);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .hero .desc {
+            font-size: 1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .hero-contact {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* Section */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: var(--dark);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-card {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .skill-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .skill-card ul { list-style: none; }
+        .skill-card li {
+            padding: 0.3rem 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        .skill-card li::before {
+            content: '▸ ';
+            color: var(--primary);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-section {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .portfolio-section > section { max-width: 1200px; }
+        .portfolio-category {
+            margin-bottom: 4rem;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .category-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .portfolio-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .portfolio-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+        .portfolio-item img, .portfolio-item video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .portfolio-item .info {
+            padding: 1.2rem;
+        }
+        .portfolio-item .info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+        .portfolio-item .info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* About / Experience */
+        .about-section { background: var(--bg); }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), transparent);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+        }
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        .timeline-item .date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-item p, .timeline-item ul {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        .timeline-item ul { padding-left: 1.2rem; }
+        .timeline-item li { margin-bottom: 0.3rem; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg-alt);
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero .subtitle { font-size: 1rem; }
+            section { padding: 3rem 1.5rem; }
+            .section-title { font-size: 1.8rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img, .lightbox video {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px; right: 40px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+    <div class="hero-content">
+        <img src="01_个人资料/个人证件照.jpg" alt="娄曾濠" class="avatar">
+        <h1>娄曾濠</h1>
+        <p class="subtitle">数字媒体技术 | 媒体运营 · 影视制作 · 自媒体策划</p>
+        <p class="desc">
+            泉州师范学院数字媒体技术专业在读，擅长短视频全流程创作、AI视觉设计、活动摄影记录与新媒体内容运营。
+            熟悉抖音/小红书/视频号平台算法逻辑，具备从选题策划到拍摄剪辑的完整能力。
+        </p>
+        <div class="hero-contact">
+            <span>📱 15506953032</span>
+            <span>📧 15506953032@163.com</span>
+            <span>📍 浙江温州</span>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
+    </div>
+</header>
+
+<!-- Skills -->
+<section id="skills">
+    <h2 class="section-title">专业技能</h2>
+    <p class="section-subtitle">覆盖视频制作、视觉设计、内容运营三大核心领域</p>
+    <div class="skills-grid">
+        <div class="skill-card">
+            <h3>🎬 视频制作</h3>
+            <ul>
+                <li>Premiere（精剪/多机位/节奏把控）</li>
+                <li>After Effects（动效/字幕包装/合成）</li>
+                <li>摄影摄像（活动跟拍/场景布光）</li>
+                <li>达芬奇调色基础</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h3>🎨 视觉设计</h3>
+            <ul>
+                <li>Photoshop（封面设计/修图）</li>
+                <li>AI 图像生成与角色设计</li>
+                <li>IP 形象设计与延展</li>
+                <li>海报/宣传物料设计</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h3>📱 内容运营</h3>
+            <ul>
+                <li>抖音/小红书/视频号内容运营</li>
+                <li>选题策划与脚本撰写</li>
+                <li>后台数据分析（完播率/互动率）</li>
+                <li>多平台分发策略</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h3>✂️ 剪辑专长</h3>
+            <ul>
+                <li>动漫剪辑与AMV混剪</li>
+                <li>竖屏短剧后期剪辑</li>
+                <li>品牌宣传片精剪</li>
+                <li>AI漫剧与剧情动画</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio -->
+<div id="portfolio" class="portfolio-section">
+<section>
+    <h2 class="section-title">作品展示</h2>
+    <p class="section-subtitle">点击作品可查看大图/视频</p>
+
+    <!-- 视频创作 -->
+    <div class="portfolio-category">
+        <div class="category-header">
+            <h3>🎬 短视频创作</h3>
+            <span class="category-badge">18 件作品</span>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1rem;font-size:0.95rem;">涵盖品牌宣传片、AI 漫剧、动漫剪辑、短剧剪辑、活动记录等多类型视频项目。</p>
+        <div class="portfolio-grid">
+            <!-- 仰望车友会 -->
+            <div class="portfolio-item" onclick="openVideo('仰望车友会/仰望车友会.mp4')">
+                <video src="仰望车友会/仰望车友会.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>仰望车友会活动视频</h4><p>品牌活动宣传片</p></div>
+            </div>
+            <!-- 学校毕业晚会 -->
+            <div class="portfolio-item" onclick="openVideo('学校毕业晚会拍摄成片/毕业晚会.mp4')">
+                <video src="学校毕业晚会拍摄成片/毕业晚会.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>学校毕业晚会</h4><p>校园活动记录</p></div>
+            </div>
+            <!-- 广之旅年会 -->
+            <div class="portfolio-item" onclick="openVideo('广之旅年会/广之旅年会.mp4')">
+                <video src="广之旅年会/广之旅年会.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>广之旅年会</h4><p>企业年会活动记录</p></div>
+            </div>
+            <!-- 创亿鸭漫剧 -->
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧1.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧1.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #1</h4><p>IP 剧情动画</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧2.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧2.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #2</h4><p>IP 剧情动画</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧3.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧3.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #3</h4><p>IP 剧情动画</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧4.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧4.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #4</h4><p>IP 剧情动画</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧5.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧5.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #5</h4><p>IP 剧情动画</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('创亿鸭IP AI漫剧/创亿鸭漫剧6.mp4')">
+                <video src="创亿鸭IP AI漫剧/创亿鸭漫剧6.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>创亿鸭 AI 漫剧 #6</h4><p>IP 剧情动画</p></div>
+            </div>
+            <!-- 漫剪 -->
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 0.mp4')">
+                <video src="漫剪/序列 0.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #1</h4><p>AMV 混剪</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 02.mp4')">
+                <video src="漫剪/序列 02.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #2</h4><p>AMV 混剪</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 02_1.mp4')">
+                <video src="漫剪/序列 02_1.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #3</h4><p>AMV 混剪</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 04.mp4')">
+                <video src="漫剪/序列 04.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #4</h4><p>AMV 混剪</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 05.mp4')">
+                <video src="漫剪/序列 05.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #5</h4><p>AMV 混剪</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('漫剪/序列 07.mp4')">
+                <video src="漫剪/序列 07.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>动漫剪辑 #6</h4><p>AMV 混剪</p></div>
+            </div>
+            <!-- 红果短剧 -->
+            <div class="portfolio-item" onclick="openVideo('红果短剧《丈夫的婚姻保卫战》成片/第26集.mp4')">
+                <video src="红果短剧《丈夫的婚姻保卫战》成片/第26集.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>红果短剧 #26</h4><p>竖屏短剧后期</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('红果短剧《丈夫的婚姻保卫战》成片/第28集.mp4')">
+                <video src="红果短剧《丈夫的婚姻保卫战》成片/第28集.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>红果短剧 #28</h4><p>竖屏短剧后期</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('红果短剧《丈夫的婚姻保卫战》成片/第29集.mp4')">
+                <video src="红果短剧《丈夫的婚姻保卫战》成片/第29集.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>红果短剧 #29</h4><p>竖屏短剧后期</p></div>
+            </div>
+            <div class="portfolio-item" onclick="openVideo('红果短剧《丈夫的婚姻保卫战》成片/第30集.mp4')">
+                <video src="红果短剧《丈夫的婚姻保卫战》成片/第30集.mp4" muted preload="metadata"></video>
+                <div class="info"><h4>红果短剧 #30</h4><p>竖屏短剧后期</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创亿鸭IP AI设计 -->
+    <div class="portfolio-category">
+        <div class="category-header">
+            <h3>🎨 创亿鸭 IP AI 设计</h3>
+            <span class="category-badge">21 件作品</span>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1rem;font-size:0.95rem;">为福建羊皮卷人才发展集团文创品牌"创亿鸭"设计的系列 IP 角色形象，涵盖客服、摄影、探险、研学、婚庆等多场景应用。</p>
+        <div class="portfolio-grid" id="grid-chuangyiya">
+            <!-- Will be populated by JS -->
+        </div>
+    </div>
+</section>
+</div>
+
+<!-- Experience -->
+<section id="experience" class="about-section">
+    <h2 class="section-title">项目与经历</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h4>福建羊皮卷人才发展集团有限公司 — 新媒体内容运营</h4>
+            <div class="date">2026.03 - 2026.06</div>
+            <ul>
+                <li>负责公司微信视频号、小红书、抖音三平台视频内容制作，月均产出 8-12 条原创视频</li>
+                <li>针对各平台算法特征调整内容策略，优化完播率与互动率</li>
+                <li>参与文创品牌"创亿鸭"IP 账号孵化，独立完成账号初期用户维护</li>
+            </ul>
+        </div>
+        <div class="timeline-item">
+            <h4>校园拍摄服务团队 — 负责人</h4>
+            <div class="date">2025.09 - 2026.06</div>
+            <ul>
+                <li>从 0 组建 2 人拍摄团队，制定分工标准与交付流程</li>
+                <li>累计服务 5 家以上校外单位，完成 30 余条商业视频交付</li>
+            </ul>
+        </div>
+        <div class="timeline-item">
+            <h4>泉州师范学院传媒部 — 部长</h4>
+            <div class="date">2024.10 - 2025.06</div>
+            <ul>
+                <li>管理学院融媒体矩阵内容板块，统筹 10 余人产出</li>
+                <li>主导校运动会、毕业晚会等 10 余场大型活动宣传视频策划与制作</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+    <h2 class="section-title">教育背景</h2>
+    <div style="text-align:center; max-width:600px; margin:0 auto;">
+        <h3 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--dark);">泉州师范学院 · 数字媒体技术（本科）</h3>
+        <p style="color:var(--primary); margin-bottom:1rem;">2023.09 - 2027.06</p>
+        <p style="color:var(--text-light); line-height:2;">
+            影视制作类：数字短片创作、AE/PR 特效、影视制作与合成、非线性编辑技术、数字摄影<br>
+            运营类：媒体运营与管理、影视广告
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 娄曾濠 | 个人作品集</p>
+    <p style="margin-top:0.5rem;">15506953032 | 15506953032@163.com</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+    <video id="lightbox-video" controls style="display:none;"></video>
+</div>
+
+<script>
+// Portfolio data - only IP designs now
+const portfolios = {
+    'grid-chuangyiya': [
+        {file:'创亿鸭ip AI设计/侦探鸭.png', title:'侦探鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/唐僧鸭.png', title:'唐僧鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/孙悟空鸭.png', title:'孙悟空鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/客服鸭(女).png', title:'客服鸭（女）', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/客服鸭(男).png', title:'客服鸭（男）', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/摄影鸭.png', title:'摄影鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/探险鸭.png', title:'探险鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/研学鸭.png', title:'研学鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/猪八戒鸭.png', title:'猪八戒鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/新郎鸭.png', title:'新郎鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/西装新郎鸭.png', title:'西装新郎鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/设计师鸭.png', title:'设计师鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/老师鸭.png', title:'老师鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/香道鸭.png', title:'香道鸭', desc:'IP角色设计'},
+        {file:'创亿鸭ip AI设计/簪花女鸭.png', title:'簪花女鸭', desc:'IP角色设计'},
+    ]
+};
+
+// Populate grids
+for (const [gridId, items] of Object.entries(portfolios)) {
+    const grid = document.getElementById(gridId);
+    if (!grid) continue;
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'portfolio-item';
+        div.onclick = () => openImage(item.file);
+        div.innerHTML = `
+            <img src="${item.file}" alt="${item.title}" loading="lazy">
+            <div class="info"><h4>${item.title}</h4><p>${item.desc}</p></div>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+// Lightbox
+function openImage(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const vid = document.getElementById('lightbox-video');
+    img.src = src;
+    img.style.display = 'block';
+    vid.style.display = 'none';
+    vid.pause();
+    lb.classList.add('active');
+}
+function openVideo(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const vid = document.getElementById('lightbox-video');
+    vid.src = src;
+    vid.style.display = 'block';
+    img.style.display = 'none';
+    lb.classList.add('active');
+    vid.play();
+}
+function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    const vid = document.getElementById('lightbox-video');
+    lb.classList.remove('active');
+    vid.pause();
+    vid.src = '';
+}
+</script>
+
+</body>
+</html>
